@@ -4,28 +4,51 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="card">
-        <img src="images/profile.png" alt="Avatar" style="width:100%">
-        <div class="container">
-            <h4><b>Olajire Olabode</b></h4>
-            <p>Developer & Designer</p>
-        </div>
-    </div>
+    <nav>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="gallery">
-        <img class="main-image" src="images/test1.jpg" alt="Main Image">
-        <div class="thumbnails">
-            <div class="thumbnail" data-src="images/test1.jpg">
-                <img src="images/test1.jpg" alt="Thumbnail 1">
+    <section id="about">
+        <h1>Hello World, I am Olasubomi Olabode</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="card">
+            <img src="images/profile.png" alt="Avatar">
+            <div class="container">
+                <h4><b>Olajire Olabode</b></h4>
+                <p>Developer & Designer</p>
             </div>
-            <div class="thumbnail" data-src="images/test2.jpg">
-                <img src="images/test2.jpg" alt="Thumbnail 2">
-            </div>
-            <div class="thumbnail" data-src="images/test3.jpg">
-                <img src="images/test3.jpg" alt="Thumbnail 3">
+            <div class="gallery">
+                <img class="main-image" src="images/test1.jpg" alt="Main Image">
+                <div class="thumbnails">
+                    <div class="thumbnail" data-src="images/test1.jpg">
+                        <img src="images/test1.jpg" alt="Thumbnail 1">
+                    </div>
+                    <div class="thumbnail" data-src="images/test2.jpg">
+                        <img src="images/test2.jpg" alt="Thumbnail 2">
+                    </div>
+                    <div class="thumbnail" data-src="images/test3.jpg">
+                        <img src="images/test3.jpg" alt="Thumbnail 3">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="olajirescript.js"></script>
+        <!-- Repeat the card for multiple projects -->
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: example@example.com</p>
+        <p>Phone: +1234567890</p>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
