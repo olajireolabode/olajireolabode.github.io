@@ -1,229 +1,57 @@
-/* =========================================================
-   NAVBAR
-========================================================= */
+// Penalty mini-game: pick a corner, the keeper dives at random.
+(function () {
+  var zones = document.querySelectorAll(".zones button");
+  var keeper = document.getElementById("keeper");
+  var ball = document.getElementById("ball");
+  var msg = document.getElementById("msg");
+  var goalsEl = document.getElementById("goals");
+  var savesEl = document.getElementById("saves");
+  if (!zones.length) return;
 
-const navbar = document.querySelector(".navbar");
+  var goals = 0, saves = 0;
+  var colX = [8, 42, 76];        // keeper left (%) per column
+  var rowY = [8, 56];            // keeper top (%) per row
+  var ballX = [14, 47, 80];      // ball left (%) per column
+  var ballY = [19, 69];          // ball top (%) per row
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 40) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
+  function place(el, left, top) {
+    el.style.left = left + "%";
+    el.style.top = top + "%";
   }
-});
 
+  function setDisabled(state) {
+    zones.forEach(function (b) { b.disabled = state; });
+  }
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
+  function shoot(zone) {
+    var dive = Math.floor(Math.random() * 6);
+    setDisabled(true);
+    place(ball, ballX[zone % 3], ballY[Math.floor(zone / 3)]);
+    place(keeper, colX[dive % 3], rowY[Math.floor(dive / 3)]);
 
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
-
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-
-  const isOpen = navLinks.classList.contains("active");
-
-  menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-});
-
-
-/* Close mobile menu after clicking a link */
-
-document.querySelectorAll(".nav-links a").forEach((link) => {
-
-  link.addEventListener("click", () => {
-
-    navLinks.classList.remove("active");
-
-    menuToggle.setAttribute("aria-label", "Open menu");
-
-  });
-
-});
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const revealElements = document.querySelectorAll(
-  ".section-heading, .about-grid, .interest-strip, .experience-item, .project-card, .future-projects, .big-interest, .contact-grid"
-);
-
-revealElements.forEach((element) => {
-  element.classList.add("reveal");
-});
-
-
-const observer = new IntersectionObserver(
-  (entries, observer) => {
-
-    entries.forEach((entry) => {
-
-      if (entry.isIntersecting) {
-
-        entry.target.classList.add("visible");
-
-        observer.unobserve(entry.target);
-
+    setTimeout(function () {
+      if (dive === zone) {
+        saves++;
+        savesEl.textContent = saves;
+        msg.textContent = "Saved. The keeper read it.";
+      } else {
+        goals++;
+        goalsEl.textContent = goals;
+        msg.textContent = "Goal!";
       }
+    }, 380);
 
-    });
-
-  },
-  {
-    threshold: 0.12
+    setTimeout(function () {
+      place(ball, 47, 112);
+      place(keeper, 42, 56);
+      msg.textContent = "Pick a corner and take the penalty.";
+      setDisabled(false);
+    }, 1800);
   }
-);
 
-
-revealElements.forEach((element) => {
-  observer.observe(element);
-});
-
-
-/* =========================================================
-   STAGGER PROJECT / EXPERIENCE ANIMATIONS
-========================================================= */
-
-const animatedGroups = [
-  ".experience-item",
-  ".project-card",
-  ".big-interest"
-];
-
-animatedGroups.forEach((selector) => {
-
-  const elements = document.querySelectorAll(selector);
-
-  elements.forEach((element, index) => {
-
-    element.style.transitionDelay = `${index * 80}ms`;
-
-  });
-
-});
-
-
-/* =========================================================
-   HERO MOUSE PARALLAX
-========================================================= */
-
-const heroVisual = document.querySelector(".hero-visual");
-
-if (heroVisual && window.matchMedia("(pointer: fine)").matches) {
-
-  document.addEventListener("mousemove", (event) => {
-
-    const x = (event.clientX / window.innerWidth - 0.5);
-    const y = (event.clientY / window.innerHeight - 0.5);
-
-    heroVisual.style.transform =
-      `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
-
-  });
-
-}
-
-
-/* =========================================================
-   PROJECT CARD TILT
-========================================================= */
-
-const projectCards = document.querySelectorAll(".project-card");
-
-if (window.matchMedia("(pointer: fine)").matches) {
-
-  projectCards.forEach((card) => {
-
-    card.addEventListener("mousemove", (event) => {
-
-      const rect = card.getBoundingClientRect();
-
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -1.5;
-      const rotateY = ((x - centerX) / centerX) * 1.5;
-
-      card.style.transform =
-        `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-7px)`;
-
+  zones.forEach(function (b) {
+    b.addEventListener("click", function () {
+      shoot(parseInt(b.getAttribute("data-z"), 10));
     });
-
-
-    card.addEventListener("mouseleave", () => {
-
-      card.style.transform = "";
-
-    });
-
   });
-
-}
-
-
-/* =========================================================
-   YEAR
-========================================================= */
-
-const year = document.getElementById("year");
-
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
-
-/* =========================================================
-   SMOOTH ANCHOR OFFSET
-========================================================= */
-
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-
-  anchor.addEventListener("click", function (event) {
-
-    const targetId = this.getAttribute("href");
-
-    if (targetId === "#") return;
-
-    const target = document.querySelector(targetId);
-
-    if (!target) return;
-
-    event.preventDefault();
-
-    const navbarHeight = navbar.offsetHeight;
-
-    const targetPosition =
-      target.getBoundingClientRect().top +
-      window.scrollY -
-      navbarHeight;
-
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth"
-    });
-
-  });
-
-});
-
-
-/* =========================================================
-   CONSOLE MESSAGE
-========================================================= */
-
-console.log(
-  "%cESTHER • CODE. CREATE. COMPETE.",
-  "color:#c7ff3d;font-size:18px;font-weight:bold;"
-);
-
-console.log(
-  "%cWelcome to the code behind the portfolio.",
-  "color:#a5aaa6;font-size:12px;"
-);
+})();
