@@ -1,108 +1,57 @@
-:root{
-  --pitch:#14432f;
-  --pitch-2:#18503a;
-  --chalk:#eef4ee;
-  --chalk-dim:#b9cdbf;
-  --yellow:#f6c90e;
-  --red:#d7263d;
-  --line:2px solid rgba(238,244,238,.75);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{
-  margin:0;color:var(--chalk);font:400 1.05rem/1.6 "Figtree",system-ui,sans-serif;
-  background:repeating-linear-gradient(90deg,var(--pitch) 0 90px,var(--pitch-2) 90px 180px);
-}
-h1,h2,h3{font-family:"Big Shoulders Display",Impact,sans-serif;line-height:1;margin:0}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+// Penalty mini-game: pick a corner, the keeper dives at random.
+(function () {
+  var zones = document.querySelectorAll(".zones button");
+  var keeper = document.getElementById("keeper");
+  var ball = document.getElementById("ball");
+  var msg = document.getElementById("msg");
+  var goalsEl = document.getElementById("goals");
+  var savesEl = document.getElementById("saves");
+  if (!zones.length) return;
 
-.nav{
-  position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
-  padding:.8rem clamp(1rem,5vw,4rem);background:rgba(20,67,47,.94);backdrop-filter:blur(6px);border-bottom:var(--line);
-}
-.brand{font:900 1.8rem "Big Shoulders Display",sans-serif;text-decoration:none}
-.nav nav{display:flex;gap:1.2rem;flex-wrap:wrap}
-.nav nav a{text-decoration:none;color:var(--chalk-dim)}
-.nav nav a:hover{color:var(--chalk)}
+  var goals = 0, saves = 0;
+  var colX = [8, 42, 76];        // keeper left (%) per column
+  var rowY = [8, 56];            // keeper top (%) per row
+  var ballX = [14, 47, 80];      // ball left (%) per column
+  var ballY = [19, 69];          // ball top (%) per row
 
-main{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,5vw,2rem)}
+  function place(el, left, top) {
+    el.style.left = left + "%";
+    el.style.top = top + "%";
+  }
 
-.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center;min-height:82vh;padding:3rem 0}
-.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);font-weight:900;text-transform:none}
-.hero p{max-width:34rem;color:var(--chalk-dim);margin:1.2rem 0 1.8rem}
-.btn{display:inline-block;background:var(--yellow);color:#1c2a1f;font-weight:600;padding:.8rem 1.6rem;border-radius:4px;text-decoration:none}
-.btn:hover{background:#ffd93d}
+  function setDisabled(state) {
+    zones.forEach(function (b) { b.disabled = state; });
+  }
 
-/* penalty game */
-.game{text-align:center}
-.msg{min-height:1.6em;margin:0 0 .8rem;font-weight:600}
-.goal{
-  position:relative;aspect-ratio:2/1;border:6px solid var(--chalk);border-bottom:none;
-  background:repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 14px),
-             repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 14px);
-}
-.zones{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr}
-.zones button{background:transparent;border:1px dashed rgba(238,244,238,.25);cursor:crosshair;padding:0}
-.zones button:hover{background:rgba(246,201,14,.18)}
-.zones button:disabled{cursor:default}
-.keeper{
-  position:absolute;width:16%;height:38%;left:42%;top:56%;border-radius:40% 40% 10% 10%;
-  background:var(--yellow);transition:left .35s ease-out,top .35s ease-out;pointer-events:none;
-}
-.ball{
-  position:absolute;width:6%;aspect-ratio:1;left:47%;top:112%;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,#fff,#cfd8cf);transition:left .35s ease-in,top .35s ease-in;pointer-events:none;
-}
-.score{margin:1.6rem 0 0;color:var(--chalk-dim)}
-.score b{color:var(--chalk);font-size:1.3rem}
+  function shoot(zone) {
+    var dive = Math.floor(Math.random() * 6);
+    setDisabled(true);
+    place(ball, ballX[zone % 3], ballY[Math.floor(zone / 3)]);
+    place(keeper, colX[dive % 3], rowY[Math.floor(dive / 3)]);
 
-/* sections */
-.block{padding:4rem 0;border-top:var(--line)}
-.block h2{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;margin-bottom:1.5rem}
-.lead{max-width:40rem;color:var(--chalk-dim);margin:0}
+    setTimeout(function () {
+      if (dive === zone) {
+        saves++;
+        savesEl.textContent = saves;
+        msg.textContent = "Saved. The keeper read it.";
+      } else {
+        goals++;
+        goalsEl.textContent = goals;
+        msg.textContent = "Goal!";
+      }
+    }, 380);
 
-.timeline{list-style:none;margin:0;padding:0 0 0 1.6rem;border-left:var(--line)}
-.timeline li{position:relative;margin-bottom:2rem;max-width:42rem}
-.timeline li::before{
-  content:"";position:absolute;left:calc(-1.6rem - 8px);top:.3rem;width:14px;height:14px;
-  border-radius:50%;background:var(--yellow);border:2px solid var(--pitch);
-}
-.timeline h3{font-size:1.7rem;font-weight:700}
-.meta{margin:.2rem 0 .4rem;color:var(--yellow);font-weight:600}
-.timeline p:last-child{margin:0;color:var(--chalk-dim)}
+    setTimeout(function () {
+      place(ball, 47, 112);
+      place(keeper, 42, 56);
+      msg.textContent = "Pick a corner and take the penalty.";
+      setDisabled(false);
+    }, 1800);
+  }
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
-.card{border:var(--line);padding:1.4rem;background:rgba(0,0,0,.18);display:flex;flex-direction:column;gap:.7rem}
-.card h3{font-size:1.7rem;font-weight:700}
-.card p{margin:0;color:var(--chalk-dim)}
-.tags{font-size:.9rem;color:var(--yellow)!important}
-.link{margin-top:auto;font-weight:600;text-underline-offset:4px}
-.card.soon{border-style:dashed;opacity:.85}
-
-.pitch{
-  margin-top:2rem;max-width:640px;padding:2rem 1rem;border:var(--line);display:flex;flex-direction:column;gap:1.6rem;
-  background:linear-gradient(transparent calc(50% - 1px),rgba(238,244,238,.4) 0 calc(50% + 1px),transparent 0);
-}
-.row{display:flex;justify-content:space-around;gap:.6rem;flex-wrap:wrap}
-.row span{
-  background:var(--chalk);color:#183024;font-weight:600;font-size:.95rem;padding:.45rem .9rem;border-radius:999px;
-  border-bottom:4px solid var(--yellow);
-}
-
-.links{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:1.2rem}
-.links a{font-weight:600;text-underline-offset:4px}
-footer{text-align:center;padding:2rem 1rem;color:var(--chalk-dim);border-top:var(--line)}
-
-@media (max-width:820px){
-  .hero{grid-template-columns:1fr;min-height:auto;gap:2.5rem}
-  .nav nav{gap:.8rem;font-size:.95rem}
-}
-@media (max-width:480px){
-  .nav{flex-direction:column;gap:.3rem}
-  .row span{font-size:.85rem;padding:.4rem .7rem}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .keeper,.ball{transition:none}
-}
+  zones.forEach(function (b) {
+    b.addEventListener("click", function () {
+      shoot(parseInt(b.getAttribute("data-z"), 10));
+    });
+  });
+})();
