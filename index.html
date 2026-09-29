@@ -1,128 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ola | Software engineering student and web developer</title>
-<meta name="description" content="Portfolio of Ola: software engineering student, freelance web developer and football fan in Montréal.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Esther | Code. Create. Compete.</title>
+
+  <meta
+    name="description"
+    content="Esther's personal portfolio — Computer Science, technology, sports, UI/UX and creative projects."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-<header class="nav">
-  <a class="brand" href="#top">Ola</a>
-  <nav aria-label="Main">
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
 
-<main id="top">
-  <section class="hero">
-    <div class="hero-text">
-      <h1>I build websites and games the way I play football: to score.</h1>
-      <p>Software engineering student and freelance web developer in Montréal. I teach code, train in the gym and build things for the sport I love.</p>
-      <a class="btn" href="#projects">See my work</a>
+  <!-- ================= NAVIGATION ================= -->
+
+  <header class="navbar">
+    <div class="nav-container">
+
+      <a href="#home" class="logo">
+        E<span>.</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#interests">Interests</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#contact" class="nav-button">
+        Let's talk <span>↗</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span></span>
+        <span></span>
+      </button>
+
     </div>
-    <div class="game" aria-label="Penalty mini-game">
-      <p id="msg" class="msg" role="status" aria-live="polite">Pick a corner and take the penalty.</p>
-      <div class="goal">
-        <div id="keeper" class="keeper" aria-hidden="true"></div>
-        <div id="ball" class="ball" aria-hidden="true"></div>
-        <div class="zones">
-          <button data-z="0" aria-label="Top left"></button>
-          <button data-z="1" aria-label="Top centre"></button>
-          <button data-z="2" aria-label="Top right"></button>
-          <button data-z="3" aria-label="Bottom left"></button>
-          <button data-z="4" aria-label="Bottom centre"></button>
-          <button data-z="5" aria-label="Bottom right"></button>
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+
+  <main>
+
+    <section class="hero" id="home">
+
+      <div class="hero-grid"></div>
+
+      <div class="hero-content">
+
+        <div class="availability">
+          <span class="status-dot"></span>
+          Available for opportunities
         </div>
+
+        <p class="eyebrow">
+          COMPUTER SCIENCE • DESIGN • SPORTS
+        </p>
+
+        <h1>
+          Code.
+          <span>Create.</span>
+          <em>Compete.</em>
+        </h1>
+
+        <p class="hero-description">
+          I'm Esther — a Computer Science student who enjoys building
+          digital experiences inspired by technology, sports and the
+          things I'm passionate about.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="primary-button">
+            Explore my work
+            <span>↓</span>
+          </a>
+
+          <a href="#about" class="secondary-button">
+            More about me
+          </a>
+        </div>
+
       </div>
-      <p class="score">Goals <b id="goals">0</b> &nbsp; Saves <b id="saves">0</b></p>
+
+
+      <!-- Floating sports / tech cards -->
+
+      <div class="hero-visual">
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="floating-card card-code">
+          <span class="card-icon">&lt;/&gt;</span>
+          <div>
+            <small>Currently</small>
+            <strong>Building</strong>
+          </div>
+        </div>
+
+        <div class="floating-card card-soccer">
+          <span>⚽</span>
+          <div>
+            <small>Passion</small>
+            <strong>Football</strong>
+          </div>
+        </div>
+
+        <div class="floating-card card-gym">
+          <span>🏋️</span>
+          <div>
+            <small>Outside</small>
+            <strong>The gym</strong>
+          </div>
+        </div>
+
+        <div class="hero-circle">
+          <div class="circle-inner">
+            <span>ESTHER</span>
+            <strong>01</strong>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="scroll-indicator">
+        <span></span>
+        Scroll to explore
+      </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="section about" id="about">
+
+      <div class="section-label">
+        <span>01</span>
+        ABOUT ME
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-title">
+          <p class="mini-label">A little about me</p>
+
+          <h2>
+            Curious by nature.
+            <span>Creative by choice.</span>
+          </h2>
+        </div>
+
+        <div class="about-text">
+
+          <p class="large-text">
+            I'm a Computer Science student who enjoys turning ideas into
+            interactive experiences.
+          </p>
+
+          <p>
+            I like exploring the intersection between technology,
+            design and real-world interests. From building websites
+            and experimenting with UI/UX to creating sports-inspired
+            applications, I'm always looking for something new to build.
+          </p>
+
+          <p>
+            When I'm away from my laptop, you'll probably find me
+            watching soccer, following football, playing basketball
+            or working out.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="interest-strip">
+
+        <div class="interest-item">
+          <span>⚽</span>
+          <p>Soccer</p>
+        </div>
+
+        <div class="interest-item">
+          <span>🏈</span>
+          <p>Football</p>
+        </div>
+
+        <div class="interest-item">
+          <span>🏀</span>
+          <p>Basketball</p>
+        </div>
+
+        <div class="interest-item">
+          <span>🏋️</span>
+          <p>Fitness</p>
+        </div>
+
+        <div class="interest-item">
+          <span>💻</span>
+          <p>Technology</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= EXPERIENCE ================= -->
+
+    <section class="section experience" id="experience">
+
+      <div class="section-label">
+        <span>02</span>
+        EXPERIENCE
+      </div>
+
+      <div class="section-heading">
+        <p class="mini-label">What I've done</p>
+
+        <h2>
+          Experience that
+          <span>shapes how I build.</span>
+        </h2>
+      </div>
+
+
+      <div class="experience-list">
+
+        <!-- EXPERIENCE 1 -->
+
+        <article class="experience-item">
+
+          <div class="experience-number">
+            01
+          </div>
+
+          <div class="experience-main">
+
+            <div class="experience-top">
+
+              <div>
+                <p class="experience-type">
+                  TEACHING • COMPUTER SCIENCE
+                </p>
+
+                <h3>CS Instructor</h3>
+              </div>
+
+              <span class="experience-arrow">↗</span>
+
+            </div>
+
+            <p class="experience-description">
+              Helping students understand computer science concepts,
+              develop problem-solving skills and become more confident
+              with technology.
+            </p>
+
+            <div class="tags">
+              <span>Computer Science</span>
+              <span>Teaching</span>
+              <span>Problem Solving</span>
+              <span>Communication</span>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- EXPERIENCE 2 -->
+
+        <article class="experience-item">
+
+          <div class="experience-number">
+            02
+          </div>
+
+          <div class="experience-main">
+
+            <div class="experience-top">
+
+              <div>
+                <p class="experience-type">
+                  PROFESSIONAL EXPERIENCE
+                </p>
+
+                <h3>Internship</h3>
+              </div>
+
+              <span class="experience-arrow">↗</span>
+
+            </div>
+
+            <p class="experience-description">
+              Gaining hands-on experience working with technology,
+              collaborating with others and applying technical
+              knowledge to real-world problems.
+            </p>
+
+            <div class="tags">
+              <span>Development</span>
+              <span>Technology</span>
+              <span>Collaboration</span>
+              <span>Problem Solving</span>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= PROJECTS ================= -->
+
+    <section class="section projects" id="projects">
+
+      <div class="section-label">
+        <span>03</span>
+        PROJECTS
+      </div>
+
+      <div class="section-heading projects-heading">
+
+        <div>
+          <p class="mini-label">Selected work</p>
+
+          <h2>
+            Things I've
+            <span>built & imagined.</span>
+          </h2>
+        </div>
+
+        <p class="heading-description">
+          A collection of projects that combine technology,
+          design and the things I'm interested in.
+        </p>
+
+      </div>
+
+
+      <div class="projects-grid">
+
+        <!-- FEATURED PROJECT -->
+
+        <article class="project-card featured-project">
+
+          <div class="project-image church-project">
+
+            <div class="project-browser">
+
+              <div class="browser-top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="browser-content">
+
+                <div class="browser-logo">
+                  RRH
+                </div>
+
+                <div class="browser-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="browser-hero">
+                  <small>WELCOME TO</small>
+                  <strong>RESTORATION<br>HOUSE</strong>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="project-status">
+              LIVE
+            </div>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <div class="project-meta">
+              <span>01</span>
+              <span>WEB DESIGN • UI/UX</span>
+            </div>
+
+            <h3>
+              RCCG Restoration House Montreal
+            </h3>
+
+            <p>
+              A modern church website designed to create a welcoming,
+              accessible and informative digital experience.
+            </p>
+
+            <div class="tags">
+              <span>WordPress</span>
+              <span>Novarima</span>
+              <span>UI/UX</span>
+              <span>Web Design</span>
+            </div>
+
+            <a
+              href="https://rccgrestorationhousemontreal.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              Visit website <span>↗</span>
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- PK27 -->
+
+        <article class="project-card">
+
+          <div class="project-image pk-project">
+
+            <div class="pk-score">
+              <small>PENALTY SHOOTOUT</small>
+
+              <strong>PK<span>27</span></strong>
+
+              <div class="goal">
+                ⚽
+              </div>
+            </div>
+
+            <div class="coming-soon">
+              IN DEVELOPMENT
+            </div>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <div class="project-meta">
+              <span>02</span>
+              <span>GAME • SPORTS</span>
+            </div>
+
+            <h3>PK27</h3>
+
+            <p>
+              A penalty shootout simulator exploring decision making,
+              game logic and the unpredictability of penalty kicks.
+            </p>
+
+            <div class="tags">
+              <span>JavaScript</span>
+              <span>Game Logic</span>
+              <span>UI/UX</span>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Ronaldo -->
+
+        <article class="project-card">
+
+          <div class="project-image ronaldo-project">
+
+            <div class="stats-dashboard">
+
+              <small>CAREER GOALS</small>
+
+              <strong>900<span>+</span></strong>
+
+              <div class="stat-bars">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+            </div>
+
+            <div class="coming-soon">
+              CONCEPT
+            </div>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <div class="project-meta">
+              <span>03</span>
+              <span>DATA • SPORTS</span>
+            </div>
+
+            <h3>Ronaldo Goals Tracker</h3>
+
+            <p>
+              An interactive football statistics dashboard exploring
+              goals, seasons, clubs, competitions and career milestones.
+            </p>
+
+            <div class="tags">
+              <span>JavaScript</span>
+              <span>API</span>
+              <span>Data Visualization</span>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <div class="future-projects">
+
+        <div>
+          <p class="mini-label">More ideas</p>
+
+          <h3>
+            The next idea
+            <span>is always loading.</span>
+          </h3>
+        </div>
+
+        <div class="idea-list">
+
+          <div class="idea">
+            <span>04</span>
+            <p>🏋️ Gym Progress Tracker</p>
+          </div>
+
+          <div class="idea">
+            <span>05</span>
+            <p>🏀 Basketball Analytics</p>
+          </div>
+
+          <div class="idea">
+            <span>06</span>
+            <p>⚽ Football Data Explorer</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= INTERESTS ================= -->
+
+    <section class="section interests" id="interests">
+
+      <div class="section-label">
+        <span>04</span>
+        BEYOND CODE
+      </div>
+
+      <div class="interest-heading">
+
+        <p class="mini-label">
+          Technology is only one part of me.
+        </p>
+
+        <h2>
+          Built by curiosity.
+          <br>
+          <span>Fuelled by competition.</span>
+        </h2>
+
+      </div>
+
+
+      <div class="interest-cards">
+
+        <div class="big-interest soccer">
+          <div class="interest-number">01</div>
+          <span class="big-icon">⚽</span>
+          <h3>Soccer</h3>
+          <p>
+            The sport that inspires way too many project ideas.
+          </p>
+        </div>
+
+        <div class="big-interest basketball">
+          <div class="interest-number">02</div>
+          <span class="big-icon">🏀</span>
+          <h3>Basketball</h3>
+          <p>
+            Stats, strategy and the beauty of the game.
+          </p>
+        </div>
+
+        <div class="big-interest fitness">
+          <div class="interest-number">03</div>
+          <span class="big-icon">🏋️</span>
+          <h3>Fitness</h3>
+          <p>
+            Discipline outside the screen matters too.
+          </p>
+        </div>
+
+        <div class="big-interest technology">
+          <div class="interest-number">04</div>
+          <span class="big-icon">💻</span>
+          <h3>Technology</h3>
+          <p>
+            Always learning. Always building.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="section contact" id="contact">
+
+      <div class="contact-grid">
+
+        <div>
+
+          <div class="section-label">
+            <span>05</span>
+            CONTACT
+          </div>
+
+          <p class="mini-label">
+            Have an idea?
+          </p>
+
+          <h2>
+            Let's build
+            <span>something.</span>
+          </h2>
+
+        </div>
+
+
+        <div class="contact-right">
+
+          <p>
+            Whether it's a project, an opportunity or just a conversation
+            about technology and sports, I'd love to hear from you.
+          </p>
+
+          <a
+            href="mailto:your.email@example.com"
+            class="email-link"
+          >
+            your.email@example.com
+            <span>↗</span>
+          </a>
+
+          <div class="social-links">
+
+            <a href="#" target="_blank">
+              GitHub ↗
+            </a>
+
+            <a href="#" target="_blank">
+              LinkedIn ↗
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-logo">
+        E<span>.</span>
+      </div>
+
+      <p>
+        Designed & built by Esther.
+      </p>
+
+      <p class="copyright">
+        © <span id="year"></span> Esther
+      </p>
+
     </div>
-  </section>
 
-  <section id="about" class="block">
-    <h2>About</h2>
-    <p class="lead">I study software engineering, freelance as a web developer, and spend the rest of my time on the pitch, in the gym or building tools for football fans. Replace this paragraph with your own story.</p>
-  </section>
+  </footer>
 
-  <section id="experience" class="block">
-    <h2>Experience</h2>
-    <ol class="timeline">
-      <li>
-        <h3>Computer Science Instructor</h3>
-        <p class="meta">Organization name, Dates</p>
-        <p>Taught programming to students. Add what you taught, how many students, and what they built.</p>
-      </li>
-      <li>
-        <h3>Software Development Intern</h3>
-        <p class="meta">Company name, Dates</p>
-        <p>Add the team, the tools you used, and one result you delivered.</p>
-      </li>
-      <li>
-        <h3>Freelance Web Developer</h3>
-        <p class="meta">Montréal, Present</p>
-        <p>Design and build WordPress sites with Elementor and SEO for churches and small businesses.</p>
-      </li>
-    </ol>
-  </section>
 
-  <section id="projects" class="block">
-    <h2>Projects</h2>
-    <div class="cards">
-      <article class="card">
-        <h3>Perfect Season</h3>
-        <p>A soccer simulation game in a single HTML file. Champions League and World Cup modes, 30+ clubs and formation switching.</p>
-        <p class="tags">HTML, CSS, JavaScript</p>
-        <a href="#" class="link">Play the game</a>
-      </article>
-      <article class="card">
-        <h3>RCCG Restoration House Montréal</h3>
-        <p>Website for a church community, designed for clear navigation, mobile use and search visibility.</p>
-        <p class="tags">WordPress, Elementor, SEO, UI/UX</p>
-        <a href="https://rccgrestorationhousemontreal.com/" class="link" target="_blank" rel="noopener">Visit the site</a>
-      </article>
-      <article class="card soon">
-        <h3>PK27</h3>
-        <p>A penalty shootout simulator. In progress.</p>
-        <p class="tags">Coming soon</p>
-      </article>
-      <article class="card soon">
-        <h3>Ronaldo Goals Tracker</h3>
-        <p>Every career goal, filterable by club, competition and year. In progress.</p>
-        <p class="tags">Coming soon</p>
-      </article>
-    </div>
-  </section>
+  <script src="script.js"></script>
 
-  <section id="skills" class="block">
-    <h2>Skills</h2>
-    <p class="lead">My starting eleven, in a 4-3-3.</p>
-    <div class="pitch" role="list">
-      <div class="row" role="listitem"><span>Web design</span><span>AI tooling</span><span>Game dev</span></div>
-      <div class="row" role="listitem"><span>WordPress</span><span>Elementor</span><span>SEO</span></div>
-      <div class="row four" role="listitem"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive</span></div>
-      <div class="row" role="listitem"><span>Git and GitHub</span></div>
-    </div>
-  </section>
-
-  <section id="contact" class="block">
-    <h2>Contact</h2>
-    <p class="lead">Want a website or a project built? Send me a message.</p>
-    <p class="links">
-      <a href="mailto:you@example.com">you@example.com</a>
-      <a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a>
-    </p>
-  </section>
-</main>
-
-<footer>Built by Ola in Montréal.</footer>
-<script src="script.js"></script>
 </body>
 </html>
