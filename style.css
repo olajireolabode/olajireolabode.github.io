@@ -322,6 +322,10 @@ button {
   color: var(--text-muted);
 }
 
+.hero h1 span:last-child {
+  color: var(--accent);
+}
+
 .hero h1 em {
   display: block;
 
