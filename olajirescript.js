@@ -20,28 +20,50 @@ window.addEventListener("scroll", () => {
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
+if (menuToggle && navLinks) {
 
-  const isOpen = navLinks.classList.contains("active");
+  menuToggle.addEventListener("click", () => {
 
-  menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-});
+    navLinks.classList.toggle("active");
 
+    const isOpen = navLinks.classList.contains("active");
 
-/* Close mobile menu after clicking a link */
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close menu" : "Open menu"
+    );
 
-document.querySelectorAll(".nav-links a").forEach((link) => {
-
-  link.addEventListener("click", () => {
-
-    navLinks.classList.remove("active");
-
-    menuToggle.setAttribute("aria-label", "Open menu");
+    menuToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
 
   });
 
-});
+
+  /* Close mobile menu after clicking a link */
+
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.classList.remove("active");
+
+      menuToggle.setAttribute(
+        "aria-label",
+        "Open menu"
+      );
+
+      menuToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    });
+
+  });
+
+}
 
 
 /* =========================================================
@@ -100,7 +122,8 @@ animatedGroups.forEach((selector) => {
 
   elements.forEach((element, index) => {
 
-    element.style.transitionDelay = `${index * 80}ms`;
+    element.style.transitionDelay =
+      `${index * 80}ms`;
 
   });
 
@@ -113,12 +136,18 @@ animatedGroups.forEach((selector) => {
 
 const heroVisual = document.querySelector(".hero-visual");
 
-if (heroVisual && window.matchMedia("(pointer: fine)").matches) {
+if (
+  heroVisual &&
+  window.matchMedia("(pointer: fine)").matches
+) {
 
   document.addEventListener("mousemove", (event) => {
 
-    const x = (event.clientX / window.innerWidth - 0.5);
-    const y = (event.clientY / window.innerHeight - 0.5);
+    const x =
+      event.clientX / window.innerWidth - 0.5;
+
+    const y =
+      event.clientY / window.innerHeight - 0.5;
 
     heroVisual.style.transform =
       `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
@@ -132,7 +161,8 @@ if (heroVisual && window.matchMedia("(pointer: fine)").matches) {
    PROJECT CARD TILT
 ========================================================= */
 
-const projectCards = document.querySelectorAll(".project-card");
+const projectCards =
+  document.querySelectorAll(".project-card");
 
 if (window.matchMedia("(pointer: fine)").matches) {
 
@@ -140,19 +170,32 @@ if (window.matchMedia("(pointer: fine)").matches) {
 
     card.addEventListener("mousemove", (event) => {
 
-      const rect = card.getBoundingClientRect();
+      const rect =
+        card.getBoundingClientRect();
 
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const x =
+        event.clientX - rect.left;
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+      const y =
+        event.clientY - rect.top;
 
-      const rotateX = ((y - centerY) / centerY) * -1.5;
-      const rotateY = ((x - centerX) / centerX) * 1.5;
+      const centerX =
+        rect.width / 2;
+
+      const centerY =
+        rect.height / 2;
+
+      const rotateX =
+        ((y - centerY) / centerY) * -1.5;
+
+      const rotateY =
+        ((x - centerX) / centerX) * 1.5;
 
       card.style.transform =
-        `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-7px)`;
+        `perspective(1000px)
+         rotateX(${rotateX}deg)
+         rotateY(${rotateY}deg)
+         translateY(-7px)`;
 
     });
 
@@ -172,10 +215,14 @@ if (window.matchMedia("(pointer: fine)").matches) {
    YEAR
 ========================================================= */
 
-const year = document.getElementById("year");
+const year =
+  document.getElementById("year");
 
 if (year) {
-  year.textContent = new Date().getFullYear();
+
+  year.textContent =
+    new Date().getFullYear();
+
 }
 
 
@@ -183,35 +230,43 @@ if (year) {
    SMOOTH ANCHOR OFFSET
 ========================================================= */
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+document
+  .querySelectorAll('a[href^="#"]')
+  .forEach((anchor) => {
 
-  anchor.addEventListener("click", function (event) {
+    anchor.addEventListener(
+      "click",
+      function (event) {
 
-    const targetId = this.getAttribute("href");
+        const targetId =
+          this.getAttribute("href");
 
-    if (targetId === "#") return;
+        if (targetId === "#") return;
 
-    const target = document.querySelector(targetId);
+        const target =
+          document.querySelector(targetId);
 
-    if (!target) return;
+        if (!target) return;
 
-    event.preventDefault();
+        event.preventDefault();
 
-    const navbarHeight = navbar.offsetHeight;
+        const navbarHeight =
+          navbar ? navbar.offsetHeight : 0;
 
-    const targetPosition =
-      target.getBoundingClientRect().top +
-      window.scrollY -
-      navbarHeight;
+        const targetPosition =
+          target.getBoundingClientRect().top +
+          window.scrollY -
+          navbarHeight;
 
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth"
-    });
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+
+      }
+    );
 
   });
-
-});
 
 
 /* =========================================================
@@ -219,11 +274,11 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 ========================================================= */
 
 console.log(
-  "%cESTHER • CODE. CREATE. COMPETE.",
-  "color:#c7ff3d;font-size:18px;font-weight:bold;"
+  "%cOLASUBOMI • LIVE. LAUGH. LEARN.",
+  "color:#3b82f6;font-size:18px;font-weight:bold;"
 );
 
 console.log(
   "%cWelcome to the code behind the portfolio.",
-  "color:#a5aaa6;font-size:12px;"
+  "color:#a7b2c2;font-size:12px;"
 );
