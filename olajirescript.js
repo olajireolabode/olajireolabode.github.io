@@ -1,3 +1,6 @@
+/* script.js */
+
+
 /* =========================================================
    NAVBAR
 ========================================================= */
@@ -81,7 +84,20 @@ if (menuToggle && navLinks) {
 
 const revealElements =
   document.querySelectorAll(
-    ".section-heading, .about-grid, .interest-strip, .experience-item, .project-card, .future-projects, .big-interest, .contact-grid"
+    ".section-heading, " +
+    ".about-grid, " +
+    ".snapshot-grid, " +
+    ".interest-strip, " +
+    ".experience-item, " +
+    ".additional-experience, " +
+    ".skill-card, " +
+    ".project-card, " +
+    ".future-projects, " +
+    ".education-card, " +
+    ".leadership-card, " +
+    ".language-card, " +
+    ".big-interest, " +
+    ".contact-grid"
   );
 
 
@@ -144,7 +160,10 @@ if ("IntersectionObserver" in window) {
 
 const animatedGroups = [
   ".experience-item",
+  ".skill-card",
   ".project-card",
+  ".education-card",
+  ".language-card",
   ".big-interest"
 ];
 
@@ -191,7 +210,6 @@ if (
           window.innerHeight -
         0.5;
 
-
       heroVisual.style.transform =
         `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
 
@@ -225,7 +243,6 @@ if (
         const rect =
           card.getBoundingClientRect();
 
-
         const x =
           event.clientX -
           rect.left;
@@ -234,13 +251,11 @@ if (
           event.clientY -
           rect.top;
 
-
         const centerX =
           rect.width / 2;
 
         const centerY =
           rect.height / 2;
-
 
         const rotateX =
           ((y - centerY) /
@@ -251,7 +266,6 @@ if (
           ((x - centerX) /
             centerX) *
           1.5;
-
 
         card.style.transform =
           `perspective(1200px)
@@ -278,19 +292,69 @@ if (
 
 
 /* =========================================================
-   YEAR
+   SKILL FILTER
 ========================================================= */
 
-const year =
-  document.getElementById("year");
+const skillFilters =
+  document.querySelectorAll(
+    "#skillFilters button"
+  );
+
+const skillCards =
+  document.querySelectorAll(
+    ".skill-card"
+  );
 
 
-if (year) {
+skillFilters.forEach((button) => {
 
-  year.textContent =
-    new Date().getFullYear();
+  button.addEventListener(
+    "click",
+    () => {
 
-}
+      const filter =
+        button.dataset.filter;
+
+
+      skillFilters.forEach((item) => {
+
+        item.classList.remove("active");
+
+      });
+
+
+      button.classList.add("active");
+
+
+      skillCards.forEach((card) => {
+
+        const category =
+          card.dataset.category;
+
+
+        if (
+          filter === "all" ||
+          category === filter
+        ) {
+
+          card.classList.remove(
+            "hidden"
+          );
+
+        } else {
+
+          card.classList.add(
+            "hidden"
+          );
+
+        }
+
+      });
+
+    }
+  );
+
+});
 
 
 /* =========================================================
@@ -359,6 +423,22 @@ document
     );
 
   });
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+const year =
+  document.getElementById("year");
+
+
+if (year) {
+
+  year.textContent =
+    new Date().getFullYear();
+
+}
 
 
 /* =========================================================
