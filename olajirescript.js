@@ -5,6 +5,8 @@
 const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
+  if (!navbar) return;
+
   if (window.scrollY > 40) {
     navbar.classList.add("scrolled");
   } else {
@@ -26,7 +28,8 @@ if (menuToggle && navLinks) {
 
     navLinks.classList.toggle("active");
 
-    const isOpen = navLinks.classList.contains("active");
+    const isOpen =
+      navLinks.classList.contains("active");
 
     menuToggle.setAttribute(
       "aria-label",
@@ -41,7 +44,7 @@ if (menuToggle && navLinks) {
   });
 
 
-  /* Close mobile menu after clicking a link */
+  /* Close menu after clicking a link */
 
   document.querySelectorAll(".nav-links a").forEach((link) => {
 
@@ -79,31 +82,43 @@ revealElements.forEach((element) => {
 });
 
 
-const observer = new IntersectionObserver(
-  (entries, observer) => {
+if ("IntersectionObserver" in window) {
 
-    entries.forEach((entry) => {
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
 
-      if (entry.isIntersecting) {
+      entries.forEach((entry) => {
 
-        entry.target.classList.add("visible");
+        if (entry.isIntersecting) {
 
-        observer.unobserve(entry.target);
+          entry.target.classList.add("visible");
 
-      }
+          observer.unobserve(entry.target);
 
-    });
+        }
 
-  },
-  {
-    threshold: 0.12
-  }
-);
+      });
+
+    },
+    {
+      threshold: 0.12
+    }
+  );
 
 
-revealElements.forEach((element) => {
-  observer.observe(element);
-});
+  revealElements.forEach((element) => {
+    observer.observe(element);
+  });
+
+} else {
+
+  /* Fallback for older browsers */
+
+  revealElements.forEach((element) => {
+    element.classList.add("visible");
+  });
+
+}
 
 
 /* =========================================================
@@ -118,7 +133,8 @@ const animatedGroups = [
 
 animatedGroups.forEach((selector) => {
 
-  const elements = document.querySelectorAll(selector);
+  const elements =
+    document.querySelectorAll(selector);
 
   elements.forEach((element, index) => {
 
@@ -134,7 +150,8 @@ animatedGroups.forEach((selector) => {
    HERO MOUSE PARALLAX
 ========================================================= */
 
-const heroVisual = document.querySelector(".hero-visual");
+const heroVisual =
+  document.querySelector(".hero-visual");
 
 if (
   heroVisual &&
@@ -164,7 +181,10 @@ if (
 const projectCards =
   document.querySelectorAll(".project-card");
 
-if (window.matchMedia("(pointer: fine)").matches) {
+if (
+  projectCards.length &&
+  window.matchMedia("(pointer: fine)").matches
+) {
 
   projectCards.forEach((card) => {
 
@@ -241,12 +261,19 @@ document
         const targetId =
           this.getAttribute("href");
 
-        if (targetId === "#") return;
+        if (
+          !targetId ||
+          targetId === "#"
+        ) {
+          return;
+        }
 
         const target =
           document.querySelector(targetId);
 
-        if (!target) return;
+        if (!target) {
+          return;
+        }
 
         event.preventDefault();
 
