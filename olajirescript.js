@@ -5,6 +5,7 @@
 const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
+
   if (!navbar) return;
 
   if (window.scrollY > 40) {
@@ -12,6 +13,7 @@ window.addEventListener("scroll", () => {
   } else {
     navbar.classList.remove("scrolled");
   }
+
 });
 
 
@@ -19,8 +21,12 @@ window.addEventListener("scroll", () => {
    MOBILE MENU
 ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
+const menuToggle =
+  document.getElementById("menuToggle");
+
+const navLinks =
+  document.getElementById("navLinks");
+
 
 if (menuToggle && navLinks) {
 
@@ -44,27 +50,27 @@ if (menuToggle && navLinks) {
   });
 
 
-  /* Close menu after clicking a link */
+  document
+    .querySelectorAll(".nav-links a")
+    .forEach((link) => {
 
-  document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
 
-    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
 
-      navLinks.classList.remove("active");
+        menuToggle.setAttribute(
+          "aria-label",
+          "Open menu"
+        );
 
-      menuToggle.setAttribute(
-        "aria-label",
-        "Open menu"
-      );
+        menuToggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
 
-      menuToggle.setAttribute(
-        "aria-expanded",
-        "false"
-      );
+      });
 
     });
-
-  });
 
 }
 
@@ -73,56 +79,67 @@ if (menuToggle && navLinks) {
    SCROLL REVEAL
 ========================================================= */
 
-const revealElements = document.querySelectorAll(
-  ".section-heading, .about-grid, .interest-strip, .experience-item, .project-card, .future-projects, .big-interest, .contact-grid"
-);
+const revealElements =
+  document.querySelectorAll(
+    ".section-heading, .about-grid, .interest-strip, .experience-item, .project-card, .future-projects, .big-interest, .contact-grid"
+  );
+
 
 revealElements.forEach((element) => {
+
   element.classList.add("reveal");
+
 });
 
 
 if ("IntersectionObserver" in window) {
 
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
+  const observer =
+    new IntersectionObserver(
+      (entries, observer) => {
 
-      entries.forEach((entry) => {
+        entries.forEach((entry) => {
 
-        if (entry.isIntersecting) {
+          if (entry.isIntersecting) {
 
-          entry.target.classList.add("visible");
+            entry.target.classList.add(
+              "visible"
+            );
 
-          observer.unobserve(entry.target);
+            observer.unobserve(
+              entry.target
+            );
 
-        }
+          }
 
-      });
+        });
 
-    },
-    {
-      threshold: 0.12
-    }
-  );
+      },
+      {
+        threshold: 0.12
+      }
+    );
 
 
   revealElements.forEach((element) => {
+
     observer.observe(element);
+
   });
 
 } else {
 
-  /* Fallback for older browsers */
-
   revealElements.forEach((element) => {
+
     element.classList.add("visible");
+
   });
 
 }
 
 
 /* =========================================================
-   STAGGER PROJECT / EXPERIENCE ANIMATIONS
+   STAGGER ANIMATIONS
 ========================================================= */
 
 const animatedGroups = [
@@ -130,6 +147,7 @@ const animatedGroups = [
   ".project-card",
   ".big-interest"
 ];
+
 
 animatedGroups.forEach((selector) => {
 
@@ -153,23 +171,32 @@ animatedGroups.forEach((selector) => {
 const heroVisual =
   document.querySelector(".hero-visual");
 
+
 if (
   heroVisual &&
   window.matchMedia("(pointer: fine)").matches
 ) {
 
-  document.addEventListener("mousemove", (event) => {
+  document.addEventListener(
+    "mousemove",
+    (event) => {
 
-    const x =
-      event.clientX / window.innerWidth - 0.5;
+      const x =
+        event.clientX /
+          window.innerWidth -
+        0.5;
 
-    const y =
-      event.clientY / window.innerHeight - 0.5;
+      const y =
+        event.clientY /
+          window.innerHeight -
+        0.5;
 
-    heroVisual.style.transform =
-      `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
 
-  });
+      heroVisual.style.transform =
+        `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
+
+    }
+  );
 
 }
 
@@ -179,7 +206,10 @@ if (
 ========================================================= */
 
 const projectCards =
-  document.querySelectorAll(".project-card");
+  document.querySelectorAll(
+    ".project-card"
+  );
+
 
 if (
   projectCards.length &&
@@ -188,43 +218,59 @@ if (
 
   projectCards.forEach((card) => {
 
-    card.addEventListener("mousemove", (event) => {
+    card.addEventListener(
+      "mousemove",
+      (event) => {
 
-      const rect =
-        card.getBoundingClientRect();
-
-      const x =
-        event.clientX - rect.left;
-
-      const y =
-        event.clientY - rect.top;
-
-      const centerX =
-        rect.width / 2;
-
-      const centerY =
-        rect.height / 2;
-
-      const rotateX =
-        ((y - centerY) / centerY) * -1.5;
-
-      const rotateY =
-        ((x - centerX) / centerX) * 1.5;
-
-      card.style.transform =
-        `perspective(1000px)
-         rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)
-         translateY(-7px)`;
-
-    });
+        const rect =
+          card.getBoundingClientRect();
 
 
-    card.addEventListener("mouseleave", () => {
+        const x =
+          event.clientX -
+          rect.left;
 
-      card.style.transform = "";
+        const y =
+          event.clientY -
+          rect.top;
 
-    });
+
+        const centerX =
+          rect.width / 2;
+
+        const centerY =
+          rect.height / 2;
+
+
+        const rotateX =
+          ((y - centerY) /
+            centerY) *
+          -1.5;
+
+        const rotateY =
+          ((x - centerX) /
+            centerX) *
+          1.5;
+
+
+        card.style.transform =
+          `perspective(1200px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-7px)`;
+
+      }
+    );
+
+
+    card.addEventListener(
+      "mouseleave",
+      () => {
+
+        card.style.transform = "";
+
+      }
+    );
 
   });
 
@@ -237,6 +283,7 @@ if (
 
 const year =
   document.getElementById("year");
+
 
 if (year) {
 
@@ -251,7 +298,9 @@ if (year) {
 ========================================================= */
 
 document
-  .querySelectorAll('a[href^="#"]')
+  .querySelectorAll(
+    'a[href^="#"]'
+  )
   .forEach((anchor) => {
 
     anchor.addEventListener(
@@ -261,6 +310,7 @@ document
         const targetId =
           this.getAttribute("href");
 
+
         if (
           !targetId ||
           targetId === "#"
@@ -268,29 +318,44 @@ document
           return;
         }
 
+
         const target =
-          document.querySelector(targetId);
+          document.querySelector(
+            targetId
+          );
+
 
         if (!target) {
           return;
         }
 
+
         event.preventDefault();
 
+
         const navbarHeight =
-          navbar ? navbar.offsetHeight : 0;
+          navbar
+            ? navbar.offsetHeight
+            : 0;
+
 
         const targetPosition =
-          target.getBoundingClientRect().top +
+          target.getBoundingClientRect()
+            .top +
           window.scrollY -
           navbarHeight;
 
+
         window.scrollTo({
+
           top: targetPosition,
+
           behavior: "smooth"
+
         });
 
       }
+
     );
 
   });
