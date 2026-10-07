@@ -1,456 +1,363 @@
 /* script.js */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =========================================================
-   NAVBAR
-========================================================= */
+    /* ================= NAVBAR ================= */
 
-const navbar = document.querySelector(".navbar");
+    const navbar = document.getElementById("navbar");
 
-window.addEventListener("scroll", () => {
+    const handleNavbar = () => {
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    };
 
-  if (!navbar) return;
-
-  if (window.scrollY > 40) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
-  }
-
-});
+    window.addEventListener("scroll", handleNavbar);
+    handleNavbar();
 
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
+    /* ================= MOBILE MENU ================= */
 
-const menuToggle =
-  document.getElementById("menuToggle");
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
 
-const navLinks =
-  document.getElementById("navLinks");
+    if (menuToggle && navMenu) {
+
+        menuToggle.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
+        navMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navMenu.classList.remove("active");
+            });
+        });
+
+    }
 
 
-if (menuToggle && navLinks) {
+    /* ================= REVEAL ON SCROLL ================= */
 
-  menuToggle.addEventListener("click", () => {
+    const revealElements = document.querySelectorAll(".reveal");
 
-    navLinks.classList.toggle("active");
+    const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
 
-    const isOpen =
-      navLinks.classList.contains("active");
+            entries.forEach(entry => {
 
-    menuToggle.setAttribute(
-      "aria-label",
-      isOpen ? "Close menu" : "Open menu"
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px"
+        }
     );
 
-    menuToggle.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
-
-  });
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
 
 
-  document
-    .querySelectorAll(".nav-links a")
-    .forEach((link) => {
+    /* ================= STAGGERED CARDS ================= */
 
-      link.addEventListener("click", () => {
+    const cardGroups = [
+        ".snapshot-card",
+        ".skill-category",
+        ".education-card",
+        ".language-card",
+        ".project-card"
+    ];
 
-        navLinks.classList.remove("active");
+    cardGroups.forEach(selector => {
 
-        menuToggle.setAttribute(
-          "aria-label",
-          "Open menu"
-        );
+        const cards = document.querySelectorAll(selector);
 
-        menuToggle.setAttribute(
-          "aria-expanded",
-          "false"
-        );
+        cards.forEach((card, index) => {
 
-      });
+            card.style.transitionDelay = `${index * 0.08}s`;
+
+        });
 
     });
 
-}
 
+    /* ================= SKILL FILTER ================= */
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
+    const filterButtons = document.querySelectorAll(".skill-filter");
+    const skillCategories = document.querySelectorAll(".skill-category");
 
-const revealElements =
-  document.querySelectorAll(
-    ".section-heading, " +
-    ".about-grid, " +
-    ".snapshot-grid, " +
-    ".interest-strip, " +
-    ".experience-item, " +
-    ".additional-experience, " +
-    ".skill-card, " +
-    ".project-card, " +
-    ".future-projects, " +
-    ".education-card, " +
-    ".leadership-card, " +
-    ".language-card, " +
-    ".big-interest, " +
-    ".contact-grid"
-  );
+    filterButtons.forEach(button => {
 
+        button.addEventListener("click", () => {
 
-revealElements.forEach((element) => {
+            filterButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
 
-  element.classList.add("reveal");
+            button.classList.add("active");
 
-});
+            const filter = button.dataset.filter;
 
+            skillCategories.forEach(category => {
 
-if ("IntersectionObserver" in window) {
+                if (filter === "all" || category.dataset.category === filter) {
+                    category.classList.remove("hidden");
+                } else {
+                    category.classList.add("hidden");
+                }
 
-  const observer =
-    new IntersectionObserver(
-      (entries, observer) => {
-
-        entries.forEach((entry) => {
-
-          if (entry.isIntersecting) {
-
-            entry.target.classList.add(
-              "visible"
-            );
-
-            observer.unobserve(
-              entry.target
-            );
-
-          }
+            });
 
         });
 
-      },
-      {
-        threshold: 0.12
-      }
-    );
+    });
 
 
-  revealElements.forEach((element) => {
+    /* ================= SMOOTH ANCHOR SCROLL ================= */
 
-    observer.observe(element);
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-  });
+        link.addEventListener("click", event => {
 
-} else {
+            const targetId = link.getAttribute("href");
 
-  revealElements.forEach((element) => {
+            if (!targetId || targetId === "#") {
+                return;
+            }
 
-    element.classList.add("visible");
+            const target = document.querySelector(targetId);
 
-  });
+            if (!target) {
+                return;
+            }
 
-}
+            event.preventDefault();
 
+            const navHeight = navbar ? navbar.offsetHeight : 0;
 
-/* =========================================================
-   STAGGER ANIMATIONS
-========================================================= */
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                navHeight;
 
-const animatedGroups = [
-  ".experience-item",
-  ".skill-card",
-  ".project-card",
-  ".education-card",
-  ".language-card",
-  ".big-interest"
-];
-
-
-animatedGroups.forEach((selector) => {
-
-  const elements =
-    document.querySelectorAll(selector);
-
-  elements.forEach((element, index) => {
-
-    element.style.transitionDelay =
-      `${index * 80}ms`;
-
-  });
-
-});
-
-
-/* =========================================================
-   HERO MOUSE PARALLAX
-========================================================= */
-
-const heroVisual =
-  document.querySelector(".hero-visual");
-
-
-if (
-  heroVisual &&
-  window.matchMedia("(pointer: fine)").matches
-) {
-
-  document.addEventListener(
-    "mousemove",
-    (event) => {
-
-      const x =
-        event.clientX /
-          window.innerWidth -
-        0.5;
-
-      const y =
-        event.clientY /
-          window.innerHeight -
-        0.5;
-
-      heroVisual.style.transform =
-        `translateY(-50%) translate(${x * 15}px, ${y * 15}px)`;
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   PROJECT CARD TILT
-========================================================= */
-
-const projectCards =
-  document.querySelectorAll(
-    ".project-card"
-  );
-
-
-if (
-  projectCards.length &&
-  window.matchMedia("(pointer: fine)").matches
-) {
-
-  projectCards.forEach((card) => {
-
-    card.addEventListener(
-      "mousemove",
-      (event) => {
-
-        const rect =
-          card.getBoundingClientRect();
-
-        const x =
-          event.clientX -
-          rect.left;
-
-        const y =
-          event.clientY -
-          rect.top;
-
-        const centerX =
-          rect.width / 2;
-
-        const centerY =
-          rect.height / 2;
-
-        const rotateX =
-          ((y - centerY) /
-            centerY) *
-          -1.5;
-
-        const rotateY =
-          ((x - centerX) /
-            centerX) *
-          1.5;
-
-        card.style.transform =
-          `perspective(1200px)
-           rotateX(${rotateX}deg)
-           rotateY(${rotateY}deg)
-           translateY(-7px)`;
-
-      }
-    );
-
-
-    card.addEventListener(
-      "mouseleave",
-      () => {
-
-        card.style.transform = "";
-
-      }
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   SKILL FILTER
-========================================================= */
-
-const skillFilters =
-  document.querySelectorAll(
-    "#skillFilters button"
-  );
-
-const skillCards =
-  document.querySelectorAll(
-    ".skill-card"
-  );
-
-
-skillFilters.forEach((button) => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const filter =
-        button.dataset.filter;
-
-
-      skillFilters.forEach((item) => {
-
-        item.classList.remove("active");
-
-      });
-
-
-      button.classList.add("active");
-
-
-      skillCards.forEach((card) => {
-
-        const category =
-          card.dataset.category;
-
-
-        if (
-          filter === "all" ||
-          category === filter
-        ) {
-
-          card.classList.remove(
-            "hidden"
-          );
-
-        } else {
-
-          card.classList.add(
-            "hidden"
-          );
-
-        }
-
-      });
-
-    }
-  );
-
-});
-
-
-/* =========================================================
-   SMOOTH ANCHOR OFFSET
-========================================================= */
-
-document
-  .querySelectorAll(
-    'a[href^="#"]'
-  )
-  .forEach((anchor) => {
-
-    anchor.addEventListener(
-      "click",
-      function (event) {
-
-        const targetId =
-          this.getAttribute("href");
-
-
-        if (
-          !targetId ||
-          targetId === "#"
-        ) {
-          return;
-        }
-
-
-        const target =
-          document.querySelector(
-            targetId
-          );
-
-
-        if (!target) {
-          return;
-        }
-
-
-        event.preventDefault();
-
-
-        const navbarHeight =
-          navbar
-            ? navbar.offsetHeight
-            : 0;
-
-
-        const targetPosition =
-          target.getBoundingClientRect()
-            .top +
-          window.scrollY -
-          navbarHeight;
-
-
-        window.scrollTo({
-
-          top: targetPosition,
-
-          behavior: "smooth"
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
 
         });
 
-      }
+    });
 
+
+    /* ================= HERO PARALLAX ================= */
+
+    const heroImage = document.querySelector(".hero-image");
+
+    if (heroImage && window.innerWidth > 900) {
+
+        window.addEventListener("mousemove", event => {
+
+            const x = (window.innerWidth / 2 - event.clientX) / 70;
+            const y = (window.innerHeight / 2 - event.clientY) / 70;
+
+            heroImage.style.transform =
+                `translate(${x}px, ${y}px)`;
+
+        });
+
+    }
+
+
+    /* ================= PROJECT TILT ================= */
+
+    const projectBrowsers = document.querySelectorAll(".project-browser");
+
+    projectBrowsers.forEach(browser => {
+
+        browser.addEventListener("mousemove", event => {
+
+            if (window.innerWidth < 900) {
+                return;
+            }
+
+            const rect = browser.getBoundingClientRect();
+
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX =
+                ((y - centerY) / centerY) * -2;
+
+            const rotateY =
+                ((x - centerX) / centerX) * 2;
+
+            browser.style.transform =
+                `perspective(1000px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 scale(1.01)`;
+
+        });
+
+        browser.addEventListener("mouseleave", () => {
+
+            browser.style.transform =
+                "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+
+        });
+
+    });
+
+
+    /* ================= PROJECT CARD TILT ================= */
+
+    const projectCards = document.querySelectorAll(".project-card");
+
+    projectCards.forEach(card => {
+
+        card.addEventListener("mousemove", event => {
+
+            if (window.innerWidth < 900) {
+                return;
+            }
+
+            const rect = card.getBoundingClientRect();
+
+            const x =
+                (event.clientX - rect.left) /
+                rect.width;
+
+            const y =
+                (event.clientY - rect.top) /
+                rect.height;
+
+            const rotateY = (x - 0.5) * 4;
+            const rotateX = (y - 0.5) * -4;
+
+            card.style.transform =
+                `perspective(1000px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 translateY(-6px)`;
+
+        });
+
+        card.addEventListener("mouseleave", () => {
+
+            card.style.transform = "";
+
+        });
+
+    });
+
+
+    /* ================= IMAGE FALLBACK ================= */
+
+    const galleryImages = document.querySelectorAll(".gallery-item img");
+
+    galleryImages.forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.parentElement.classList.add("image-missing");
+
+            image.style.display = "none";
+
+            const fallback = document.createElement("div");
+
+            fallback.className = "gallery-fallback";
+
+            fallback.innerHTML = `
+                <span>Silverlight</span>
+                <small>Project Screenshot</small>
+            `;
+
+            image.parentElement.insertBefore(
+                fallback,
+                image.nextSibling
+            );
+
+        });
+
+    });
+
+
+    /* ================= ACTIVE NAVIGATION ================= */
+
+    const sections = document.querySelectorAll(
+        "section[id]"
     );
 
-  });
+    const navLinks = document.querySelectorAll(
+        ".nav-menu a"
+    );
+
+    const sectionObserver = new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                    });
+
+                    const activeLink =
+                        document.querySelector(
+                            `.nav-menu a[href="#${entry.target.id}"]`
+                        );
+
+                    if (activeLink) {
+                        activeLink.classList.add("active");
+                    }
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.3
+        }
+    );
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
 
 
-/* =========================================================
-   YEAR
-========================================================= */
+    /* ================= CURRENT YEAR ================= */
 
-const year =
-  document.getElementById("year");
+    const yearElement = document.getElementById("year");
 
-
-if (year) {
-
-  year.textContent =
-    new Date().getFullYear();
-
-}
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 
 
-/* =========================================================
-   CONSOLE MESSAGE
-========================================================= */
+    /* ================= ESCAPE MENU ================= */
 
-console.log(
-  "%cOLASUBOMI • LIVE. LAUGH. LEARN.",
-  "color:#3b82f6;font-size:18px;font-weight:bold;"
-);
+    document.addEventListener("keydown", event => {
 
-console.log(
-  "%cWelcome to the code behind the portfolio.",
-  "color:#a7b2c2;font-size:12px;"
-);
+        if (event.key === "Escape") {
+            navMenu?.classList.remove("active");
+        }
+
+    });
+
+});
