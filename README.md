@@ -6,9 +6,11 @@ I’m a software engineering student who enjoys building useful things, solving 
 
 ## Design Inspiration
 
-I chose a Football Manager-inspired profile layout because I like how it organizes a person’s strengths, roles, and information in a clear, structured way. I wanted to bring that idea into a software engineering portfolio instead of using a typical developer website design.
+I’m a huge Football Manager fan, and I’ve been playing the game for around 10 years. I’m pretty addicted to it, so using its player-profile style for my portfolio felt natural.
 
-The near-black theme, charcoal panels, and subtle purple accents keep the design focused and easy to scan. My goal is to make the site feel modern and professional while keeping the style that inspired it.
+I like how Football Manager presents information through profiles, attributes, roles, and strengths. I wanted to bring that familiar layout into my software engineering journey and create something that reflects both my personality and my interest in technology.
+
+I kept the near-black theme, charcoal panels, and subtle purple accents to make the design feel modern, focused, and easy to navigate while staying true to the Football Manager inspiration.
 
 ## What You’ll Find Here
 
